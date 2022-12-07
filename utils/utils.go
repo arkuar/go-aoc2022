@@ -3,7 +3,6 @@ package utils
 import (
 	"bufio"
 	"bytes"
-	"io/ioutil"
 	"log"
 	"os"
 	"sort"
@@ -94,7 +93,7 @@ func ReadLinesSplitFunc(filename string, split bufio.SplitFunc) []string {
 
 // ReadFile reads a file and returns it as a single string
 func ReadFile(filename string) string {
-	buf, err := ioutil.ReadFile(filename)
+	buf, err := os.ReadFile(filename)
 	Check(err)
 
 	return string(buf)
