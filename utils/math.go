@@ -3,6 +3,8 @@ package utils
 import (
 	"sort"
 	"strconv"
+
+	"golang.org/x/exp/constraints"
 )
 
 // ConvertToInt converts a string to integer
@@ -77,4 +79,11 @@ func LCM(a, b int, integers ...int) int {
 	}
 
 	return result
+}
+
+func Min[T constraints.Ordered](a, b T) T {
+	if a < b {
+		return a
+	}
+	return b
 }
