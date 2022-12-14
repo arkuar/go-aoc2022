@@ -43,6 +43,7 @@ func main() {
 
 func dropSand(grid map[image.Point]struct{}, bottom int) (p1, p2 int) {
 	dirs := []image.Point{image.Pt(0, 1), image.Pt(-1, 1), image.Pt(1, 1)}
+	previous := utils.Stack[image.Point]{}
 	pos := image.Pt(500, 0)
 	for {
 		if _, ok := grid[image.Pt(500, 0)]; ok {
@@ -50,6 +51,7 @@ func dropSand(grid map[image.Point]struct{}, bottom int) (p1, p2 int) {
 		}
 		for i, dir := range dirs {
 			if _, ok := grid[pos.Add(dir)]; !ok && pos.Add(dir).Y < bottom+2 {
+				previous.Push(pos)
 				pos = pos.Add(dir)
 				break
 			}
@@ -58,7 +60,11 @@ func dropSand(grid map[image.Point]struct{}, bottom int) (p1, p2 int) {
 					p1 = p2
 				}
 				grid[pos] = struct{}{}
-				pos = image.Pt(500, 0)
+				if p, ok := previous.Pop(); ok {
+					pos = p
+				} else {
+					pos = image.Pt(500, 0)
+				}
 				p2++
 			}
 		}
