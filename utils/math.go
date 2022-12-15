@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"image"
 	"sort"
 	"strconv"
 
@@ -93,4 +94,8 @@ func Max[T constraints.Ordered](a, b T) T {
 		return a
 	}
 	return b
+}
+
+func Manhattan(a, b image.Point) int {
+	return Abs(a.X-b.X) + Abs(a.Y-b.Y)
 }
